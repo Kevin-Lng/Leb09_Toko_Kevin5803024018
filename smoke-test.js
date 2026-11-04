@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 
-const gatewayUrl = 'http://localhost:8080';
+const gatewayUrl = 'http://localhost:8082';
 
 async function main() {
   const productListResponse = await fetch(`${gatewayUrl}/product-service/products`);

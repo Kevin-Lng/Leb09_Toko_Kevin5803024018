@@ -33,4 +33,8 @@ app.use('/order-service', createProxyMiddleware({
   on: { error: handleProxyError },
 }));
 
-app.listen(8080, () => console.log('API Gateway beroperasi di http://localhost:8080'));
+const PORT = Number(process.env.PORT) || 8082;
+
+app.listen(PORT, () => {
+  console.log(`API Gateway beroperasi di http://localhost:${PORT}`);
+});
