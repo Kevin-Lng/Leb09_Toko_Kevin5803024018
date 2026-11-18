@@ -3,10 +3,29 @@ const express = require('express');
 const { createProxyMiddleware } = require('http-proxy-middleware');
 const { rateLimit } = require('express-rate-limit');
 const swaggerUi = require('swagger-ui-express');
+const crypto = require('crypto');
 
 const app = express();
 
 app.set('trust proxy', 1);
+
+// Request ID untuk melacak permintaan
+app.use((req, res, next) => {
+  req.headers['x-request-id'] =
+    req.headers['x-request-id'] || crypto.randomUUID();
+
+  res.setHeader('X-Request-Id', req.headers['x-request-id']);
+
+  next();
+});
+
+// Health Check API Gateway
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: 'gateway',
+  });
+});
 
 // ============================================
 // KONFIGURASI SERVICE

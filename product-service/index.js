@@ -7,6 +7,8 @@ const app = express();
 
 app.use(express.json());
 
+require('./observability')(app, 'product-service');
+
 // Data produk
 const products = [
   {

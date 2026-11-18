@@ -1,0 +1,24 @@
+{
+  "name": "program",
+  "version": "1.0.0",
+  "description": "Repository ini berisi implementasi microservices toko sederhana untuk Lab 09 dan Lab 10, serta dokumentasi API menggunakan OpenAPI dan Swagger untuk Week 11.",
+  "main": "smoke-test.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "node --test tests/api.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kevin-Lng/Leb09_Toko_Kevin5803024018.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Kevin-Lng/Leb09_Toko_Kevin5803024018/issues"
+  },
+  "homepage": "https://github.com/Kevin-Lng/Leb09_Toko_Kevin5803024018#readme"
+}

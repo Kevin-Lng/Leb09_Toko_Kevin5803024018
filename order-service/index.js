@@ -8,6 +8,8 @@ const app = express();
 
 app.use(express.json());
 
+require('./observability')(app, 'order-service');
+
 // Konfigurasi service
 const productServiceUrl =
   process.env.PRODUCT_SERVICE_URL || 'http://localhost:3000';
@@ -377,6 +379,7 @@ app.post('/orders', async (req, res) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'X-Request-Id': req.id,
         },
         body: JSON.stringify({ qty }),
         signal: AbortSignal.timeout(2000),

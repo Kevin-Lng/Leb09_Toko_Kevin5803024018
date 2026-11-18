@@ -1,0 +1,64 @@
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: |
+          npm ci --prefix product-service
+          npm ci --prefix order-service
+          npm ci --prefix gateway
+
+      - name: Start services
+        run: |
+          node product-service/index.js > product.log 2>&1 &
+          node order-service/index.js > order.log 2>&1 &
+          node gateway/gateway.js > gateway.log 2>&1 &
+
+      - name: Wait until services are ready
+        run: |
+          for url in \
+            http://localhost:3000/health \
+            http://localhost:3001/health \
+            http://localhost:8080/health
+          do
+            ok=0
+
+            for i in $(seq 1 30); do
+              if curl -sf "$url" > /dev/null; then
+                ok=1
+                break
+              fi
+
+              sleep 1
+            done
+
+            if [ "$ok" != 1 ]; then
+              echo "Tidak siap: $url"
+              exit 1
+            fi
+          done
+
+      - name: Run automated tests
+        run: npm test
+
+      - name: Show service logs
+        if: always()
+        run: |
+          for f in product order gateway; do
+            echo "=== $f ==="
+            cat "$f.log" 2>/dev/null || true
+          done
