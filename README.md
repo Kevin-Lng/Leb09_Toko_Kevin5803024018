@@ -1,3 +1,5 @@
+[![CI](https://github.com/Kevin-Lng/Leb09_Toko_Kevin5803024018/actions/workflows/ci.yml/badge.svg)](https://github.com/Kevin-Lng/Leb09_Toko_Kevin5803024018/actions/workflows/ci.yml)
+
 # Praktikum Web Service Lab 09–11
 
 Repository ini berisi implementasi microservices toko sederhana untuk Lab 09 dan Lab 10, serta dokumentasi API menggunakan OpenAPI dan Swagger untuk Week 11.
