@@ -286,7 +286,7 @@ app.post('/products/:id/reserve', (req, res) => {
   }
 
   if (product.stock < qty) {
-    return res.status(409).json({
+    return res.status(400).json({
       message: 'Stok produk tidak mencukupi.',
     });
   }
